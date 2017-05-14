@@ -194,7 +194,7 @@ printer_head_pos_ds_id = st_client.post_datastream(
     Thing={"@iot.id": printer_id}).get('@iot.id')
 
 # ************************************************************************************************************
-# Create datastream for extrusion of filament (extrusion)
+# Create datastream for extrus  ion of filament (extrusion)
 # ************************************************************************************************************
 
 extrusion_sensor_id = st_client.post_sensor(
