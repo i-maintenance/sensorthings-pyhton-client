@@ -3,24 +3,30 @@ from sensorthings import build_unit_of_measurement, SensorThingsClient
 # ************************************************************************************************************
 # Create definition of units
 # ************************************************************************************************************
-milimeter_unit = build_unit_of_measurement(name='Milimeter',
-                                           symbol='mm',
-                                           definition='http://qudt.org/vocab/unit/MilliM')
-per_meter_unit = build_unit_of_measurement(name='Units per meter',
-                                           symbol='1/m',
-                                           definition='<<TODO>>')
-counting_unit = build_unit_of_measurement(name='Counting Unit',
-                                          symbol='1',
-                                          definition='<<TODO>>')
-temperature_unit = build_unit_of_measurement(name='Degree Celsius',
-                                             symbol='degC',
-                                             definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius')
-airquality_unit = build_unit_of_measurement(name='Volatile Organic Compounds',
-                                            symbol='VOC',
-                                            definition='https://en.wikipedia.org/wiki/Volatile_organic_compound')
-cubic_milimeter_unit = build_unit_of_measurement(name='Cubic Milimeter',
-                                                 symbol='mm3',
-                                                 definition='http://qudt.org/vocab/unit#CubicMiliaMeter')
+milimeter_unit = build_unit_of_measurement(
+    name='Milimeter',
+    symbol='mm',
+    definition='http://qudt.org/vocab/unit/MilliM')
+per_meter_unit = build_unit_of_measurement(
+    name='Units per meter',
+    symbol='1/m',
+    definition='<<TODO>>')
+counting_unit = build_unit_of_measurement(
+    name='Counting Unit',
+    symbol='1',
+    definition='<<TODO>>')
+temperature_unit = build_unit_of_measurement(
+    name='Degree Celsius',
+    symbol='degC',
+    definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius')
+airquality_unit = build_unit_of_measurement(
+    name='Volatile Organic Compounds',
+    symbol='VOC',
+    definition='https://en.wikipedia.org/wiki/Volatile_organic_compound')
+cubic_milimeter_unit = build_unit_of_measurement(
+    name='Cubic Milimeter',
+    symbol='mm3',
+    definition='http://qudt.org/vocab/unit#CubicMiliaMeter')
 
 # create client for SensorThings API
 st_client = SensorThingsClient('http://localhost:8080')
@@ -215,4 +221,3 @@ extrusion_ds_id = st_client.post_datastream(
     observed_property={"@iot.id": extrusion_op_id},
     sensor={"@iot.id": extrusion_sensor_id},
     Thing={"@iot.id": printer_id}).get('@iot.id')
-
