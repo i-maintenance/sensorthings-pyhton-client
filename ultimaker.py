@@ -19,7 +19,10 @@ def create_ultimaker(server):
     # create 3D printer in lab
     printer_id = st_client.post_thing(
         name='Ultimaker 2',
-        description='3D printer im IoT Labor').get('@iot.id')
+        description='3D printer Ultimaker 2 in IoT Lab',
+        properties={
+            'specification': 'https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf'}
+    ).get('@iot.id')
 
     # ********************************************************************************************************
     # Create datastream for filament consumption measurements (fila.distance)
