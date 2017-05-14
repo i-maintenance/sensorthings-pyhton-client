@@ -1,4 +1,4 @@
-# SensorThings client in Python for the i-Maintenance project.
+# SensorThings Python client for the i-Maintenance project.
 Python client for the central SensorThings server.
 
 * Requirements:
