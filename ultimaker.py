@@ -235,7 +235,7 @@ airquality_unit = build_unit_of_measurement(
 cubic_milimeter_unit = build_unit_of_measurement(
     name='Cubic Milimeter',
     symbol='mm3',
-    definition='http://qudt.org/vocab/unit#CubicMiliaMeter')
+    definition='http://qudt.org/vocab/unit#CubicMiliMeter')
 
 if __name__ == '__main__':
     create_ultimaker()
