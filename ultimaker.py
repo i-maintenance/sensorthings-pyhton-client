@@ -28,10 +28,11 @@ def create_ultimaker(server):
     # Create datastream for filament consumption measurements (fila.distance)
     # ********************************************************************************************************
     distance_sensor_id = st_client.post_sensor(
-        name='<<TODO: rotation sensor name>>',
-        description='<<TODO: rotation sensor name>>',
-        encoding_type='application/pdf',
-        medadata='<<TODO>>').get('@iot.id')
+        name='Filament Sensor',
+        description='The Filament Sensor measures the filament feeding process of the Ultimaker 2 3D printer',
+        encoding_type='X4-encoding',
+        encoding_description='http://www.motioncontroltips.com/faq-what-do-x1-x2-and-x4-position-encoding-mean-for-incremental-encoders/'
+        medadata='https://www.thingiverse.com/thing:1733104').get('@iot.id')
 
     fila_distance_op_id = st_client.post_observed_property(
         name='Filament Length',
@@ -215,15 +216,16 @@ def create_ultimaker(server):
 milimeter_unit = build_unit_of_measurement(
     name='Milimeter',
     symbol='mm',
-    definition='http://qudt.org/vocab/unit/MilliM')
+    definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#Meter',
+    prefix='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#Milli')
 per_meter_unit = build_unit_of_measurement(
     name='Units per meter',
     symbol='1/m',
-    definition='<<TODO>>')
+    definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#PerMeter')
 counting_unit = build_unit_of_measurement(
     name='Counting Unit',
     symbol='1',
-    definition='<<TODO>>')
+    definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#Number')
 temperature_unit = build_unit_of_measurement(
     name='Degree Celsius',
     symbol='degC',
@@ -235,7 +237,8 @@ airquality_unit = build_unit_of_measurement(
 cubic_milimeter_unit = build_unit_of_measurement(
     name='Cubic Milimeter',
     symbol='mm3',
-    definition='http://qudt.org/vocab/unit#CubicMiliMeter')
+    definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#CubicMeter',
+    prefix='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#Milli')
 
 if __name__ == '__main__':
     create_ultimaker()
