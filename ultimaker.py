@@ -29,10 +29,10 @@ def create_ultimaker(server):
     # ********************************************************************************************************
     filament_sensor_id = st_client.post_sensor(
         name='Filament Sensor',
-        description='The Filament Sensor measures the filament feeding process of the Ultimaker 2 3D printer',
-        encoding_type='X4-encoding',
-        encoding_description='http://www.motioncontroltips.com/faq-what-do-x1-x2-and-x4-position-encoding-mean-for-incremental-encoders/'
-        medadata='https://www.thingiverse.com/thing:1733104').get('@iot.id')
+        description='The Filament Sensor measures the filament feeding process of the Ultimaker 2 3D printer by using the X4-encoding',
+        encoding_type='text/html',
+        encoding_description='http://www.motioncontroltips.com/faq-what-do-x1-x2-and-x4-position-encoding-mean-for-incremental-encoders/',
+        medadata = 'https://www.thingiverse.com/thing:1733104').get('@iot.id')
 
     fila_distance_op_id = st_client.post_observed_property(
         name='Filament Length',
@@ -51,12 +51,6 @@ def create_ultimaker(server):
     # ********************************************************************************************************
     # Create datastream for skid detection measurements (fila.skidrate & fila.skidcount)
     # ********************************************************************************************************
-
-#    skid_sensor_id = st_client.post_sensor(
-#        name='<<TODO: skid sensor name>>',
-#        description='<<TODO: rotation sensor name>>',
-#        encoding_type='application/pdf',
-#        medadata='<<TODO>>').get('@iot.id')
 
     # Skid rate observations
     skid_rate_op_id = st_client.post_observed_property(
@@ -90,52 +84,66 @@ def create_ultimaker(server):
     # Create datastream for sensing temperatures measurements (temp, temp.bed.current & temp.nozzle.current)
     # ********************************************************************************************************
 
-    temperature_sensor_id = st_client.post_sensor(
-        name='<<Ultimaker 2 internal Temperature Sensor>>',
-        description='The Ultimaker 2 is featured with internal PT100 sensors',
-        encoding_type='PT100',
-        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get('@iot.id')
+    temperature_sensor_air_id = st_client.post_sensor(
+        name='Air temperature sensor',
+        description='NTC temperature sensor for air',
+        encoding_type='application/pdf',
+        medadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get('@iot.id')
 
     # Ambient temperature observations
     amb_temp_op_id = st_client.post_observed_property(
         name='Ambient Temperature',
         description='Temperature of surrounding during print.',
-        definition='<<TODO >>').get('@iot.id')
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
     amb_temp_ds_id = st_client.post_datastream(
         name='Ambient Temperature DS',
         description='Observations of temperature of surrounding during print.',
         observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
         unit_of_measurement=temperature_unit,
         observed_property={"@iot.id": amb_temp_op_id},
-        sensor={"@iot.id": temperature_sensor_id},
+        sensor={"@iot.id": temperature_sensor_air_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
 
     # Bed temperature observations
+    temperature_sensor_bed_id = st_client.post_sensor(
+        name='Ultimaker 2 internal Temperature Sensor',
+        description='The Ultimaker 2 is featured with internal PT100 sensors',
+        encoding_type='application/pdf',
+        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        '@iot.id')
+
     bed_temp_op_id = st_client.post_observed_property(
         name='Bed Temperature',
         description='Temperature of base plate during print.',
-        definition='<<TODO >>').get('@iot.id')
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
     bed_temp_ds_id = st_client.post_datastream(
         name='Bed Temperature DS',
         description='Observations of temperature of base plate during print.',
         observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
         unit_of_measurement=temperature_unit,
         observed_property={"@iot.id": bed_temp_op_id},
-        sensor={"@iot.id": temperature_sensor_id},
+        sensor={"@iot.id": temperature_sensor_bed_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
 
     # Nozzle temperature observations
+    temperature_sensor_nozzle_id = st_client.post_sensor(
+        name='Ultimaker 2 internal Nozzle Temperature Sensor',
+        description='The Ultimaker 2 is featured with internal PT100 sensor',
+        encoding_type='application/pdf',
+        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        '@iot.id')
+
     nozzle_temp_op_id = st_client.post_observed_property(
         name='Nozzle Temperature',
         description='Temperature of nozzle during print.',
-        definition='<<TODO >>').get('@iot.id')
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
     nozzle_temp_ds_id = st_client.post_datastream(
         name='Nozzle Temperature DS',
         description='Observations of temperature of nozzle during print.',
         observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
         unit_of_measurement=temperature_unit,
         observed_property={"@iot.id": nozzle_temp_op_id},
-        sensor={"@iot.id": temperature_sensor_id},
+        sensor={"@iot.id": temperature_sensor_nozzle_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
 
     # ********************************************************************************************************
@@ -143,15 +151,15 @@ def create_ultimaker(server):
     # ********************************************************************************************************
 
     airquality_sensor_id = st_client.post_sensor(
-        name='VELUX Raumluftfühler',
-        description='Messung der Raumluftqualität auf Basis flüchtiger organischer Verbindungen (VOCs).',
+        name='VELUX Raumluftfuehler',
+        description='Messung der Raumluftqualitaet auf Basis fluechtiger organischer Verbindungen (VOCs).',
         encoding_type='text/html',
         medadata='http://www.velux.de/produkte/lueftungsloesungen-belueftung/raumluftfuehler').get('@iot.id')
 
     airquality_op_id = st_client.post_observed_property(
         name='Airquality',
         description='Quality of air during print.',
-        definition='<<TODO >>').get('@iot.id')
+        definition='https://en.wikipedia.org/wiki/Volatile_organic_compound').get('@iot.id')
     airquality_ds_id = st_client.post_datastream(
         name='Airquality DS',
         description='Observations of airquality during print.',
@@ -166,15 +174,16 @@ def create_ultimaker(server):
     # ********************************************************************************************************
 
     printer_head_pos_sensor_id = st_client.post_sensor(
-        name='<<TODO>>',
-        description='<<TODO>>',
+        name='Print Head position Z',
+        description='Print Head position Z-axis (height)',
         encoding_type='application/pdf',
-        medadata='<<TODO>>').get('@iot.id')
+        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        '@iot.id')
 
     printer_head_pos_op_id = st_client.post_observed_property(
         name='Printer Head Z-Coordinate',
-        description='Z-Coordinates of printer head.',
-        definition='<<TODO >>').get('@iot.id')
+        description='Z-Coordinate of printer head.',
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#Length').get('@iot.id')
     printer_head_pos_ds_id = st_client.post_datastream(
         name='Printer Head Z-Coordinate DS',
         description='Observations of z-coordinate of printer head.',
@@ -189,15 +198,16 @@ def create_ultimaker(server):
     # ********************************************************************************************************
 
     extrusion_sensor_id = st_client.post_sensor(
-        name='<<TODO>>',
-        description='<<TODO>>',
+        name='Planned Filament Extrusion',
+        description='Volume of Filament feeded by the printer',
         encoding_type='application/pdf',
-        medadata='<<TODO>>').get('@iot.id')
+        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        '@iot.id')
 
     extrusion_op_id = st_client.post_observed_property(
         name='Filament Usage',
-        description='Volume of use filament',
-        definition='<<TODO >>').get('@iot.id')
+        description='Volume of used filament',
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#Volume').get('@iot.id')
     extrusion_ds_id = st_client.post_datastream(
         name='Filament Usage DS',
         description='Observations used filament during print',
