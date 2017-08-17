@@ -30,7 +30,7 @@ def create_ultimaker(server):
     filament_sensor_id = st_client.post_sensor(
         name='Filament Sensor',
         description='The Filament Sensor measures the filament feeding process of the Ultimaker 2 3D printer by using the X4-encoding',
-        encoding_type='text/html',
+        encoding_type='application/pdf',
         encoding_description='http://www.motioncontroltips.com/faq-what-do-x1-x2-and-x4-position-encoding-mean-for-incremental-encoders/',
         medadata = 'https://www.thingiverse.com/thing:1733104').get('@iot.id')
 
@@ -153,7 +153,7 @@ def create_ultimaker(server):
     airquality_sensor_id = st_client.post_sensor(
         name='VELUX Raumluftfuehler',
         description='Messung der Raumluftqualitaet auf Basis fluechtiger organischer Verbindungen (VOCs).',
-        encoding_type='text/html',
+        encoding_type='application/pdf',
         medadata='http://www.velux.de/produkte/lueftungsloesungen-belueftung/raumluftfuehler').get('@iot.id')
 
     airquality_op_id = st_client.post_observed_property(
