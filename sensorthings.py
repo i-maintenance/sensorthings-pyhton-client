@@ -34,9 +34,9 @@ class SensorThingsClient:
         op.update(kwargs)
         return self._post(path='/v1.0/ObservedProperties', data=op)
 
-    def post_sensor(self, name, description, encoding_type, medadata, **kwargs):
+    def post_sensor(self, name, description, encoding_type, metadata, **kwargs):
         sensor = {'name': name, 'description': description, 'encodingType': encoding_type,
-                  'metadata': medadata}
+                  'metadata': metadata}
         sensor.update(kwargs)
         return self._post(path='/v1.0/Sensors', data=sensor)
 
