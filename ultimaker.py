@@ -30,9 +30,9 @@ def create_ultimaker(server):
     filament_sensor_id = st_client.post_sensor(
         name='Filament Sensor',
         description='The Filament Sensor measures the filament feeding process of the Ultimaker 2 3D printer by using the X4-encoding',
-        encoding_type='text/html',
+        encoding_type='application/pdf',
         encoding_description='http://www.motioncontroltips.com/faq-what-do-x1-x2-and-x4-position-encoding-mean-for-incremental-encoders/',
-        medadata = 'https://www.thingiverse.com/thing:1733104').get('@iot.id')
+        medadata='https://www.thingiverse.com/thing').get('@iot.id')
 
     fila_distance_op_id = st_client.post_observed_property(
         name='Filament Length',
@@ -88,13 +88,15 @@ def create_ultimaker(server):
         name='Air temperature sensor',
         description='NTC temperature sensor for air',
         encoding_type='application/pdf',
-        medadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get('@iot.id')
+        medadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get(
+        '@iot.id')
 
     # Ambient temperature observations
     amb_temp_op_id = st_client.post_observed_property(
         name='Ambient Temperature',
         description='Temperature of surrounding during print.',
-        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get(
+        '@iot.id')
     amb_temp_ds_id = st_client.post_datastream(
         name='Ambient Temperature DS',
         description='Observations of temperature of surrounding during print.',
@@ -115,7 +117,8 @@ def create_ultimaker(server):
     bed_temp_op_id = st_client.post_observed_property(
         name='Bed Temperature',
         description='Temperature of base plate during print.',
-        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get(
+        '@iot.id')
     bed_temp_ds_id = st_client.post_datastream(
         name='Bed Temperature DS',
         description='Observations of temperature of base plate during print.',
@@ -136,7 +139,8 @@ def create_ultimaker(server):
     nozzle_temp_op_id = st_client.post_observed_property(
         name='Nozzle Temperature',
         description='Temperature of nozzle during print.',
-        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get(
+        '@iot.id')
     nozzle_temp_ds_id = st_client.post_datastream(
         name='Nozzle Temperature DS',
         description='Observations of temperature of nozzle during print.',
@@ -153,7 +157,7 @@ def create_ultimaker(server):
     airquality_sensor_id = st_client.post_sensor(
         name='VELUX Raumluftfuehler',
         description='Messung der Raumluftqualitaet auf Basis fluechtiger organischer Verbindungen (VOCs).',
-        encoding_type='text/html',
+        encoding_type='application/pdf',
         medadata='http://www.velux.de/produkte/lueftungsloesungen-belueftung/raumluftfuehler').get('@iot.id')
 
     airquality_op_id = st_client.post_observed_property(
