@@ -32,7 +32,7 @@ def create_ultimaker(server):
         description='The Filament Sensor measures the filament feeding process of the Ultimaker 2 3D printer by using the X4-encoding',
         encoding_type='application/pdf',
         encoding_description='http://www.motioncontroltips.com/faq-what-do-x1-x2-and-x4-position-encoding-mean-for-incremental-encoders/',
-        medadata = 'https://www.thingiverse.com/thing:1733104').get('@iot.id')
+        metadata='https://www.thingiverse.com/thing:1733104').get('@iot.id')
 
     fila_distance_op_id = st_client.post_observed_property(
         name='Filament Length',
@@ -88,7 +88,7 @@ def create_ultimaker(server):
         name='Air temperature sensor',
         description='NTC temperature sensor for air',
         encoding_type='application/pdf',
-        medadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get('@iot.id')
+        metadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get('@iot.id')
 
     # Ambient temperature observations
     amb_temp_op_id = st_client.post_observed_property(
@@ -109,7 +109,7 @@ def create_ultimaker(server):
         name='Ultimaker 2 internal Temperature Sensor',
         description='The Ultimaker 2 is featured with internal PT100 sensors',
         encoding_type='application/pdf',
-        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        metadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
         '@iot.id')
 
     bed_temp_op_id = st_client.post_observed_property(
@@ -130,7 +130,7 @@ def create_ultimaker(server):
         name='Ultimaker 2 internal Nozzle Temperature Sensor',
         description='The Ultimaker 2 is featured with internal PT100 sensor',
         encoding_type='application/pdf',
-        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        metadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
         '@iot.id')
 
     nozzle_temp_op_id = st_client.post_observed_property(
@@ -154,7 +154,7 @@ def create_ultimaker(server):
         name='VELUX Raumluftfuehler',
         description='Messung der Raumluftqualitaet auf Basis fluechtiger organischer Verbindungen (VOCs).',
         encoding_type='application/pdf',
-        medadata='http://www.velux.de/produkte/lueftungsloesungen-belueftung/raumluftfuehler').get('@iot.id')
+        metadata='http://www.velux.de/produkte/lueftungsloesungen-belueftung/raumluftfuehler').get('@iot.id')
 
     airquality_op_id = st_client.post_observed_property(
         name='Airquality',
@@ -177,7 +177,7 @@ def create_ultimaker(server):
         name='Print Head position Z',
         description='Print Head position Z-axis (height)',
         encoding_type='application/pdf',
-        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        metadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
         '@iot.id')
 
     printer_head_pos_op_id = st_client.post_observed_property(
@@ -201,7 +201,7 @@ def create_ultimaker(server):
         name='Planned Filament Extrusion',
         description='Volume of Filament feeded by the printer',
         encoding_type='application/pdf',
-        medadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
+        metadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get(
         '@iot.id')
 
     extrusion_op_id = st_client.post_observed_property(
