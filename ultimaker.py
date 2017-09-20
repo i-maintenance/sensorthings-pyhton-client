@@ -22,7 +22,7 @@ def create_ultimaker(server):
         description='3D printer Ultimaker 2 in IoT Lab',
         properties={
             'specification': 'https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf',
-            'uuid': '77371300-a534-4416-a640-39c559c34e13'}
+            'isprong_uuid': '77371300-a534-4416-a640-39c559c34e13'}
     ).get('@iot.id')
 
     # ********************************************************************************************************
