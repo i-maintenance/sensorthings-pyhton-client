@@ -21,7 +21,9 @@ def create_ultimaker(server):
         name='Ultimaker 2',
         description='3D printer Ultimaker 2 in IoT Lab',
         properties={
-            'specification': 'https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf'}
+            'specification': 'https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf',
+            'isprong_uuid': '77371300-a534-4416-a640-39c559c34e13'
+        }
     ).get('@iot.id')
 
     # ********************************************************************************************************
@@ -88,7 +90,8 @@ def create_ultimaker(server):
         name='Air temperature sensor',
         description='NTC temperature sensor for air',
         encoding_type='application/pdf',
-        metadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get('@iot.id')
+        metadata='https://shop.bb-sensors.com/out/media/Datasheet_NTC%20Sensor_0365%200020-12.pdf').get(
+        '@iot.id')
 
     # Ambient temperature observations
     amb_temp_op_id = st_client.post_observed_property(

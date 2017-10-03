@@ -37,27 +37,28 @@ def create_cm_temperatures(server, printer_id):
     # add the prefix "Temp" to the sensor number e.g.: ["S312", "Temp312", "wall left-back-top"]
     sensors = [[i[0], i[0].replace("S", "Temp"), i[1]] for i in sensors]
 
-    temperature_sensor_ids = dict()
     sensor_op_ids = dict()
     sensor_ds_ids = dict()
 
-    for sensor_id, sensor_code, sensor_desc in sensors:
-        # set temperature observations
-        temperature_sensor_ids[sensor_id] = st_client.post_sensor(name=sensor_code,
-                                                                  description=sensor_desc,
-                                                                  encoding_type='application/pdf',
-                                                                  metadata='https://ultimaker.com/file/download/productgroup/Ultimaker%202+%20specification%20sheet.pdf/5819be416ae76.pdf').get('@iot.id')
+    temperature_sensor_id = st_client.post_sensor(name='LM35',
+                                                  description='Temperature Sensor with Analog Output with 30V Capability',
+                                                  encoding_type='application/pdf',
+                                                  metadata='http://www.ti.com/lit/gpn/LM35').get(
+        '@iot.id')
 
+    for sensor_id, sensor_code, sensor_desc in sensors:
         sensor_op_ids[sensor_id] = st_client.post_observed_property(name='Temperature',
                                                                     description=sensor_desc,
-                                                                    definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get('@iot.id')
+                                                                    definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#ThermodynamicTemperature').get(
+            '@iot.id')
 
         sensor_ds_ids[sensor_id] = st_client.post_datastream(name=sensor_code,
                                                              description=sensor_desc,
                                                              observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
                                                              unit_of_measurement=temperature_unit,
-                                                             observed_property={'@iot.id': sensor_op_ids[sensor_id]},
-                                                             sensor={'@iot.id': temperature_sensor_ids[sensor_id]},
+                                                             observed_property={
+                                                                 '@iot.id': sensor_op_ids[sensor_id]},
+                                                             sensor={'@iot.id': temperature_sensor_id},
                                                              Thing={'@iot.id': printer_id}).get('@iot.id')
 
 
