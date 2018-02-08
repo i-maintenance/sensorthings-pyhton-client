@@ -50,6 +50,20 @@ def create_ultimaker(server):
         sensor={"@iot.id": filament_sensor_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
 
+    fila_throughput_op_id = st_client.post_observed_property(
+        name='Filament Throughput',
+        description='Filament Throughput in mm^3/s',
+        definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/index.html#VolumePerUnitTime').get('@iot.id')
+
+    fila_throughput_ds_id = st_client.post_datastream(
+        name='Filament Throughput DS',
+        description='Filament Throughput in mm^3/s',
+        observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
+        unit_of_measurement=cubic_millimeter_per_second_unit,
+        observed_property={"@iot.id": fila_throughput_op_id},
+        sensor={"@iot.id": filament_sensor_id},
+        Thing={"@iot.id": printer_id}).get('@iot.id')
+
 
     fila_movement_op_id = st_client.post_observed_property(
         name='Filament Movement',
@@ -288,6 +302,11 @@ binary_unit = build_unit_of_measurement(
     name='Binary Unit',
     symbol='1',
     definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#BinaryPrefixUnit')
+cubic_millimeter_per_second_unit = build_unit_of_measurement(
+    name='Cubic Millimeter per Second',
+    symbol='mm3/s',
+    factor='1.0E9',
+    definition='http://www.qudt.org/qudt/owl/1.0.0/quantity/index.html#VolumePerUnitTime')
 
 
 if __name__ == '__main__':

@@ -3,8 +3,11 @@ import json
 import requests
 import getEntities
 
-def build_unit_of_measurement(name, symbol, definition):
-    return {'name': name, 'symbol': symbol, 'definition': definition}
+
+def build_unit_of_measurement(name, symbol, definition, **kwargs):
+    unit = {'name': name, 'symbol': symbol, 'definition': definition}
+    unit.update(kwargs)
+    return unit
 
 
 class SensorThingsClient:
