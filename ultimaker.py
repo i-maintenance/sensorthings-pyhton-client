@@ -3,7 +3,7 @@ from sensorthings import build_unit_of_measurement, SensorThingsClient
 
 
 @click.command()
-@click.option('--server', default='http://localhost:8080', help='URL of SensorThings server')
+@click.option('--server', default='http://localhost:8082', help='URL of SensorThings server')
 def create_ultimaker(server):
     """Creates model of Ultimaker on SensorThings API server"""
 
@@ -49,6 +49,36 @@ def create_ultimaker(server):
         observed_property={"@iot.id": fila_distance_op_id},
         sensor={"@iot.id": filament_sensor_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
+
+
+    fila_movement_op_id = st_client.post_observed_property(
+        name='Filament Movement',
+        description='Detection of a filament movement',
+        definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#BinaryPrefixUnit').get('@iot.id')
+
+    fila_movement_ds_id = st_client.post_datastream(
+        name='Filament Movement DS',
+        description='Detection of a filament movement',
+        observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
+        unit_of_measurement=binary_unit,
+        observed_property={"@iot.id": fila_movement_op_id},
+        sensor={"@iot.id": filament_sensor_id},
+        Thing={"@iot.id": printer_id}).get('@iot.id')
+
+    fila_printing_op_id = st_client.post_observed_property(
+        name='Printing Status',
+        description='Detection if the Printer is busy',
+        definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#BinaryPrefixUnit').get('@iot.id')
+
+    fila_printing_ds_id = st_client.post_datastream(
+        name='Printing Status DS',
+        description='Detection if the Printer is busy',
+        observation_type='http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement',
+        unit_of_measurement=binary_unit,
+        observed_property={"@iot.id": fila_printing_op_id},
+        sensor={"@iot.id": filament_sensor_id},
+        Thing={"@iot.id": printer_id}).get('@iot.id')
+
 
     # ********************************************************************************************************
     # Create datastream for skid detection measurements (fila.skidrate & fila.skidcount)
@@ -152,6 +182,7 @@ def create_ultimaker(server):
         sensor={"@iot.id": temperature_sensor_nozzle_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
 
+
     # ********************************************************************************************************
     # Create datastream for airquality measurements (airquality)
     # ********************************************************************************************************
@@ -223,7 +254,7 @@ def create_ultimaker(server):
         sensor={"@iot.id": extrusion_sensor_id},
         Thing={"@iot.id": printer_id}).get('@iot.id')
 
-    print('Created printer with id {}'.format(printer_id))
+    print('Updated printer with id {}'.format(printer_id))
 
 
 # ************************************************************************************************************
@@ -253,6 +284,11 @@ cubic_milimeter_unit = build_unit_of_measurement(
     name='Cubic Milimeter',
     symbol='mm3',
     definition='http://qudt.org/vocab/unit/MilliM3')
+binary_unit = build_unit_of_measurement(
+    name='Binary Unit',
+    symbol='1',
+    definition='http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#BinaryPrefixUnit')
+
 
 if __name__ == '__main__':
     create_ultimaker()
