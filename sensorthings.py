@@ -1,7 +1,7 @@
 import json
 
 import requests
-
+import getEntities
 
 def build_unit_of_measurement(name, symbol, definition):
     return {'name': name, 'symbol': symbol, 'definition': definition}
@@ -10,6 +10,7 @@ def build_unit_of_measurement(name, symbol, definition):
 class SensorThingsClient:
     def __init__(self, base_url):
         self.base_url = base_url
+        self.model = getEntities.getModel(base_url)
 
     def post_thing(self, name, description, properties=None, **kwargs):
         thing = {'name': name,
@@ -40,7 +41,18 @@ class SensorThingsClient:
         sensor.update(kwargs)
         return self._post(path='/v1.0/Sensors', data=sensor)
 
+    # def _post(self, path, data, **kwargs):
+    #     r = requests.post(self.base_url + path, data=json.dumps(data), **kwargs)
+    #     r.raise_for_status()
+    #     return r.json()
+
     def _post(self, path, data, **kwargs):
-        r = requests.post(self.base_url + path, data=json.dumps(data), **kwargs)
-        r.raise_for_status()
-        return r.json()
+        entity = self.model.has_entity(path, data["name"])
+        if entity is None:
+            print("Added ", data["name"], " in path ", path)
+            r = requests.post(self.base_url + path, data=json.dumps(data), **kwargs)
+            r.raise_for_status()
+            return r.json()
+        else:
+            print("already have ", data["name"])
+            return entity
